@@ -26,6 +26,6 @@ The Love2d game is in src/ . The rest of this repo is for building it and prepar
 - Love2d, node, and npm need to be installed, and zip is needed to make the zip file
 - `npm install` downloads Love.js
 - `npm run-script build` creates the release/ folder and converts the Love2d project in src/ to html in release/
-- `npm run-script zip` will delete any exisint bumpy-road.zip file and then create a new one with the contents of release/
+- `npm run-script zip` will delete any existing bumpy-road.zip file and then create a new one with the contents of release/
 - bumpy-road.zip can then be uploaded to Itch.io
 - Caddyfile is to configure the caddy webserver which I am using locally. Just run `caddy` in the repo root folder, and the game will be available at http://localhost:2015 after release/ is populated by the build
