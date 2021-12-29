@@ -4,6 +4,21 @@ I feel like toying with a game engine and submitting to an Itch.io jam, namely [
 
 My early thoughts are to have a ball roll down a procedurally-generated hill. I'm not sure how I'll turn that into a game, but hey I gotta start somewhere.
 
+## Dev Notes
+
+### The ball drops
+
+I moved the tutorial code to tutorial.lua and made a physics ball that drops. Whee. Some possible next steps:
+
+- Modularize the ball and any entities
+- Have each passive entity manage itself (despawn or reset position, velocity, rotation)
+- Create a flat slope for the ball(s) to roll down
+- Create a **bumpy ~~road~~** slope for them to roll down
+- Camera to scroll along with balls
+- Continue generating new bits of bumpy road/slope to ride down (using noise)
+
+I don't guess I'll bother uploading the dropping ball to Itch. I might have but don't want to bother with the screenshot.
+
 ## Building
 
 The Love2d game is in src/ . The rest of this repo is for building it and preparing to deploy to Itch.io . It relies on node and npm to install Love.js .
