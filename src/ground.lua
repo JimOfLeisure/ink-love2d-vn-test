@@ -13,6 +13,10 @@ function Ground:load(world)
     -- self.body:setAngle(0.2)
 end
 
+function Ground:update(dt)
+    self.body:setAngularVelocity(0.2)
+end
+
 function Ground:normal_draw()
     graphics.setColor(0.28, 0.63, 0.05)
     graphics.polygon("fill", self.body:getWorldPoints(self.shape:getPoints()))

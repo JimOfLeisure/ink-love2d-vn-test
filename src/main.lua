@@ -18,6 +18,7 @@ end
 
 function love.update(dt)
     world:update(dt)
+    ground:update(dt)
 end
 
 function love.draw()
