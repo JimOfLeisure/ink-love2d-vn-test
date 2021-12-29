@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "mkdir -p release && npx love.js --compatibility --title \"Bumpy Road\" src release"
+    "build": "mkdir -p release && npx love.js --compatibility --title \"Bumpy Road\" src release",
+    "zip": "rm -f bumpy-road.zip; pushd release; zip -9 ../bumpy-road.zip *; popd"
   },
   "repository": {
     "type": "git",
