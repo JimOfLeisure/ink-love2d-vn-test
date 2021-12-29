@@ -1,5 +1,7 @@
 --[[
     Starting with exact code from https://love2d.org/wiki/Tutorial:Physics
+    The copyright statement and license in this repo to not apply to this
+    file in its current state as it's a direct copy from the aforementioned website
 ]]
 
 function love.load()
