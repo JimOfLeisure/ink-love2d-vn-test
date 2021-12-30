@@ -29,6 +29,13 @@ Next steps will probably be generating the ground. I now think I'll have control
 
 I'm thinking the goal of the game might be a speed challenge to either maintain a high level of speed or cover a set distance as quickly as possible. The catch may be that if the ball launches too far or too long into the air it will deploy a parachute to slow down and land softly before rolling downhill again.
 
+### The ball now rolls down a bumpy surface!
+
+It took me far too long to do this. Rotating gravity was easy; rotating the camera was mind-blowingly tricky, and I'm still unclear on a couple of things.
+
+The ground is in several sections, and as the ball moves to the right, each section in turn will recreate itself to disappear from the left and appear at the right with a continuous bumpy surface. I think this is more efficient than continually removing and adding items to the table, even though I'm still creating and destroying the physics objects.
+
+
 ## Building
 
 The Love2d game is in src/ . The rest of this repo is for building it and preparing to deploy to Itch.io . It relies on node and npm to install Love.js .
