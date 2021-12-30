@@ -1,3 +1,5 @@
+require("camera")
+
 local graphics = love.graphics
 
 local METER_SIZE = 64
@@ -19,15 +21,23 @@ end
 function love.update(dt)
     world:update(dt)
     ground:update(dt)
-    if ball.body:getY() > 700 then
+    if ball.body:getY() > 750 then
         ball.body:setY(30)
         ball.body:setX(375)
         ball.body:setLinearVelocity(0, 0)
+        camera.y = 0;
+    end
+    camera.x = ball.body:getX()
+    local ball_y = ball.body:getY()
+    if ball_y > 550 then
+        camera.y = ball_y - 550
     end
 end
 
 function love.draw()
+    camera:set()
     graphics.setColor(0.75, 0, 0.75)
     graphics.circle("fill", ball.body:getX(), ball.body:getY(), ball.shape:getRadius())
     ground:draw()
+    camera:unset()
 end
