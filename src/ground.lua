@@ -5,7 +5,7 @@ local graphics = love.graphics
 -- add to noise parameter to randomize the noise results between games
 local origin = (love.math.random() -0.5) * 3000
 local NOISE_SCALE = 1
-local BUMP_SCALE = 10
+local BUMP_SCALE = 20
 local ground_sections = {}
 local world
 
