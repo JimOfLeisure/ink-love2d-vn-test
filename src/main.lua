@@ -7,7 +7,7 @@ local GRAVITY = 9.81 * METER_SIZE
 local world
 local ball = {}
 local ground = require("ground")
-local gravity_angle = 0.2
+local gravity_angle = 1
 
 function love.load()
     love.physics.setMeter(METER_SIZE)
@@ -31,9 +31,10 @@ function love.update(dt)
     end
     camera.x = ball.body:getX()
     local ball_y = ball.body:getY()
-    if ball_y > 550 then
-        camera.y = ball_y - 550
-    end
+    camera.y = ball_y
+    -- if ball_y > 550 then
+    --     camera.y = ball_y - 550
+    -- end
 end
 
 function love.draw()
