@@ -17,6 +17,8 @@ function camera:set(angle)
     push()
     translate(-self.x, -self.y - y_offset)
     rotate(angle)
+    translate((-self.x) * math.cos(angle) + x_offset, x_offset * math.sin(angle))
+    -- translate(-x_offset, y_offset)
     -- translate(-self.x + x_offset, -self.y)
     -- translate(-self.x, -self.y)
 end
