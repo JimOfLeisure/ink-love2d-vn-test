@@ -30,16 +30,16 @@ end
 
 function Ground:load(physics_world)
     world = physics_world
-    -- table.insert(ground_sections, new_ground_section(400, 500))
     for i=0,800,100 do
         table.insert(ground_sections, new_ground_section(i, 500))
     end
 end
 
-function Ground:update(x)
+function Ground:update(float_x)
+    local x = math.floor(float_x)
     for i, section in ipairs(ground_sections) do
         if x - section.body:getX() > 400 then
-            ground_sections[i] = new_ground_section(math.fmod(x + 400, 100), 500)
+            ground_sections[i] = new_ground_section((math.floor(x / 100) * 100) + 400, 500)
         end
     end
 end
