@@ -15,11 +15,12 @@ local y_offset = graphics.getHeight() / 2
 function camera:set(angle)
     push()
     translate(-self.x, -self.y)
-    -- rotate(angle)
-    -- translate((-x_offset) * math.cos(angle) + x_offset, x_offset * math.sin(angle))
+    -- rotate(-(angle - (math.pi / 2)))
+    -- pop()
+    -- rotate(0)
     translate(x_offset,y_offset)
-    -- translate(-self.x + x_offset, -self.y)
-    -- translate(-self.x, -self.y)
+    -- scale(0.25,0.25)
+    -- translate(50,50)
 end
 
 function camera:unset()
