@@ -6,12 +6,25 @@ local body
 local shape
 local fixture
 
+-- add to noise parameter to randomize the noise results between games
+local origin = (love.math.random() -0.5) * 3000 
+
 function Ground:load(world)
-    self.body = love.physics.newBody(world, 400, 500, "kinematic")
-    self.shape = love.physics.newRectangleShape(700, 50)
+    self.body = love.physics.newBody(world, 400, 500, "static")
+    -- self.shape = love.physics.newRectangleShape(700, 50)
+    -- local coords = { -350, 50, 350, 60, 350, 100 }
+    local coords = {}
+    local i
+    for i=-55,55,20 do
+        table.insert(coords, i)
+        table.insert(coords, -25)
+    end
+    for _, e in ipairs({ 55, 25, -55, 25 }) do
+        table.insert(coords, e)
+    end
+    
+    self.shape = love.physics.newPolygonShape(coords)
     self.fixture = love.physics.newFixture(self.body, self.shape)
-    -- self.body:setAngle(0.2)
-    self.body:setAngularVelocity(0.2)
 end
 
 function Ground:update(dt)
