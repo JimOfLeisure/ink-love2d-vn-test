@@ -39,6 +39,10 @@ function Ground:update(float_x)
     local x = math.floor(float_x)
     for i, section in ipairs(ground_sections) do
         if x - section.body:getX() > 400 then
+            -- hopefully releasing the memory this way; release() left the physics objects in place
+            section.fixture:destroy()
+            -- section.shape:destroy()
+            section.body:destroy()
             ground_sections[i] = new_ground_section((math.floor(x / 100) * 100) + 400, 500)
         end
     end
