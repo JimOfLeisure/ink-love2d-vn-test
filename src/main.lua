@@ -25,6 +25,7 @@ function love.update(dt)
         ball.body:setY(30)
         ball.body:setX(375)
         ball.body:setLinearVelocity(0, 0)
+        ball.body:setAngularVelocity(0)
         camera.y = 0;
     end
     camera.x = ball.body:getX()
