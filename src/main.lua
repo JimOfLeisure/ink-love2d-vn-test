@@ -7,10 +7,11 @@ local GRAVITY = 9.81 * METER_SIZE
 local world
 local ball = {}
 local ground = require("ground")
+local gravity_angle = 1.5
 
 function love.load()
     love.physics.setMeter(METER_SIZE)
-    world = love.physics.newWorld(0, GRAVITY, true)
+    world = love.physics.newWorld(math.cos(gravity_angle) * GRAVITY, math.sin(gravity_angle) * GRAVITY, true)
     ball.body = love.physics.newBody(world, 375, 30, "dynamic")
     ball.shape = love.physics.newCircleShape(25)
     ball.fixture = love.physics.newFixture(ball.body, ball.shape, 1)
@@ -20,7 +21,7 @@ end
 
 function love.update(dt)
     world:update(dt)
-    ground:update(dt)
+    ground:update(ball.body:getX())
     if ball.body:getY() > 750 then
         ball.body:setY(30)
         ball.body:setX(375)

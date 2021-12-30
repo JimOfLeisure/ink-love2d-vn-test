@@ -10,7 +10,6 @@ local ground_sections = {}
 local world
 
 local function new_ground_section(x, y)
-    print(x, y)
     local section = {}
     section.body = love.physics.newBody(world, x, y, "static")
 
@@ -37,8 +36,12 @@ function Ground:load(physics_world)
     end
 end
 
-function Ground:update(dt)
-
+function Ground:update(x)
+    for i, section in ipairs(ground_sections) do
+        if x - section.body:getX() > 400 then
+            ground_sections[i] = new_ground_section(math.fmod(x + 400, 100), 500)
+        end
+    end
 end
 
 function Ground:draw()
