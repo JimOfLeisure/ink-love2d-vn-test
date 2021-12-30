@@ -19,6 +19,11 @@ end
 function love.update(dt)
     world:update(dt)
     ground:update(dt)
+    if ball.body:getY() > 700 then
+        ball.body:setY(30)
+        ball.body:setX(375)
+        ball.body:setLinearVelocity(0, 0)
+    end
 end
 
 function love.draw()

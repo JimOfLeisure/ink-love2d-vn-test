@@ -19,6 +19,14 @@ I moved the tutorial code to tutorial.lua and made a physics ball that drops. Wh
 
 I don't guess I'll bother uploading the dropping ball to Itch. I might have but don't want to bother with the screenshot.
 
+### The ground exists...and it spins
+
+I got stuck on a temporary test of wanting the "ground" to rotate but finally figured it out. And now the ball resets once it falls below the screen so it repeatedly drops onto the rotating "ground".
+
+Next steps will probably be generating the ground. I now think I'll have controls to vary the angle of the hill, but instead of rotating the ground I'll rotate the camera and change the direction of gravity. That will make placing the generated ground sections easier.
+
+I'm thinking the goal of the game might be a speed challenge to either maintain a high level of speed or cover a set distance as quickly as possible. The catch may be that if the ball launches too far or too long into the air it will deploy a parachute to slow down and land softly before rolling downhill again.
+
 ## Building
 
 The Love2d game is in src/ . The rest of this repo is for building it and preparing to deploy to Itch.io . It relies on node and npm to install Love.js .
