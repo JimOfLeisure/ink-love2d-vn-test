@@ -7,7 +7,9 @@ local shape
 local fixture
 
 -- add to noise parameter to randomize the noise results between games
-local origin = (love.math.random() -0.5) * 3000 
+local origin = (love.math.random() -0.5) * 3000
+local NOISE_SCALE = 1
+local BUMP_SCALE = 10
 
 function Ground:load(world)
     self.body = love.physics.newBody(world, 400, 500, "static")
@@ -15,11 +17,11 @@ function Ground:load(world)
     -- local coords = { -350, 50, 350, 60, 350, 100 }
     local coords = {}
     local i
-    for i=-55,55,20 do
+    for i=-50,50,20 do
         table.insert(coords, i)
-        table.insert(coords, -25)
+        table.insert(coords, -25 - (love.math.noise(origin + i) * NOISE_SCALE) * BUMP_SCALE)
     end
-    for _, e in ipairs({ 55, 25, -55, 25 }) do
+    for _, e in ipairs({ 50, 25, -50, 25 }) do
         table.insert(coords, e)
     end
     
