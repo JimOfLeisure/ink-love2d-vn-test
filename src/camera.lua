@@ -18,7 +18,7 @@ function camera:set(angle)
     translate(-self.x, -self.y - y_offset)
     rotate(angle)
     -- translate(-self.x + x_offset, -self.y)
-    translate(-self.x, -self.y)
+    -- translate(-self.x, -self.y)
 end
 
 function camera:unset()

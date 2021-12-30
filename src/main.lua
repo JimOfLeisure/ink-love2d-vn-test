@@ -7,7 +7,7 @@ local GRAVITY = 9.81 * METER_SIZE
 local world
 local ball = {}
 local ground = require("ground")
-local gravity_angle = 1.5
+local gravity_angle = 0.2
 
 function love.load()
     love.physics.setMeter(METER_SIZE)
