@@ -58,7 +58,7 @@ function love.update(dt)
 
         -- print(y - drag_y)
         -- print(gravity_angle)
-        gravity_angle = gravity_angle + (y - drag_y) * 0.05
+        gravity_angle = gravity_angle + (drag_y - y) * 0.01
         if gravity_angle < 1 then
             gravity_angle = 1
         else
