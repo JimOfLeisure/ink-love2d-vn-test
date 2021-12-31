@@ -41,10 +41,12 @@ function love.update(dt)
     camera.y = ball_y
     if not parachute_deployed and ball_y <  200 then
         parachute_deployed = true
-        ball.body:setAngularVelocity(0)
+        -- ball.body:setAngularVelocity(0)
+        ball.body:setAngularDamping(0.9)
     end
     if parachute_deployed and ball_y > 400 then
         parachute_deployed = false
+        ball.body:setAngularDamping(0)
     end
     if parachute_deployed then
         local sx, sy = ball.body:getLinearVelocity()
