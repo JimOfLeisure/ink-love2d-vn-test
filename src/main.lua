@@ -48,6 +48,10 @@ function love.update(dt)
 end
 
 function love.draw()
+    if parachute_deployed then
+        graphics.setColor(1, 0.5, 0.5)
+        graphics.print("Parachute deployed", 100, 100, 0, 4)
+    end
     camera:set(gravity_angle)
     graphics.setColor(0.75, 0, 0.75)
     graphics.circle("fill", ball.body:getX(), ball.body:getY(), ball.shape:getRadius())
