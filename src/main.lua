@@ -45,7 +45,7 @@ function love.load()
     ball.fixture = love.physics.newFixture(ball.body, ball.shape, 1)
     ball.fixture:setRestitution(0.6)
     ground:load(world)
-    parachute_image = graphics.newImage("parachute-icon.png")
+    parachute_image = graphics.newImage("Parachute-icon.png")
     ball_image = graphics.newImage("SoccerBall.png")
 end
 
