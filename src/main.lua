@@ -13,6 +13,9 @@ local parachute_deployed = true
 local parachute_image
 local parachute_angle = 0
 local ball_image
+local dragging = false
+local drag_x = 0.0
+local drag_y = 0.0
 
 function love.load()
     love.physics.setMeter(METER_SIZE)
@@ -57,6 +60,9 @@ function love.update(dt)
 end
 
 function love.draw()
+    if dragging then
+        graphics.print("dragging", 100, 100)
+    end
     graphics.setBackgroundColor(0.529, 0.808, 0.922)
     camera:set(gravity_angle)
     if parachute_deployed then
@@ -71,4 +77,18 @@ function love.draw()
     graphics.draw(ball_image,ball.body:getX(), ball.body:getY(), ball.body:getAngle(), 0.55, nil, 50, 50 )
     ground:draw()
     camera:unset()
+end
+
+function love.mousepressed(x, y, button)
+    if button == 1 then
+        dragging = true
+        drag_x = x
+        drag_y = y
+    end
+end
+
+function love.mousereleased(x, y, button)
+    if button == 1 then
+        dragging = false
+    end
 end
