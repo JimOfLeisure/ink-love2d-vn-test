@@ -49,3 +49,12 @@ The Love2d game is in src/ . The rest of this repo is for building it and prepar
 - `npm run-script zip` will delete any existing bumpy-road.zip file and then create a new one with the contents of release/
 - bumpy-road.zip can then be uploaded to Itch.io
 - Caddyfile is to configure the caddy webserver which I am using locally. Just run `caddy` in the repo root folder, and the game will be available at http://localhost:2015 after release/ is populated by the build
+
+## Credits / Asset Licensing
+
+### parachute-icon.png
+
+- Source: https://commons.wikimedia.org/wiki/File:Parachute-icon.png
+- File URL: https://upload.wikimedia.org/wikipedia/commons/2/24/Parachute-icon.png
+- MiniBjorn, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+- Image is displayed as rotated based on velocity
