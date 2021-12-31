@@ -56,8 +56,6 @@ function love.update(dt)
         local x = love.mouse.getX()
         local y = love.mouse.getY()
 
-        -- print(y - drag_y)
-        -- print(gravity_angle)
         gravity_angle = gravity_angle + (drag_y - y) * 0.01
         if gravity_angle < 1 then
             gravity_angle = 1
@@ -85,7 +83,6 @@ function love.update(dt)
     if not parachute_deployed and ball_y <  200 then
         parachute_deployed = true
         parachute_deploys = parachute_deploys + 1
-        -- ball.body:setAngularVelocity(0)
         ball.body:setAngularDamping(0.9)
     end
     local timer = love.timer.getTime()
@@ -108,18 +105,14 @@ function love.update(dt)
         if ready_100m or current_meter > 100 then
             ready_100m = true
             local dtime = timer - history_100m[current_meter % 100]
-            -- print (dtime)
             if dtime < fastest_100m then
                 fastest_100m = dtime
-                -- print(dtime)
             end
             if ready_1km or current_meter > 1000 then
                 ready_1km = true
                 local dtime = timer - history_1km[current_meter % 1000]
-                -- print (dtime)
                 if dtime < fastest_1km then
                     fastest_1km = dtime
-                    -- print(dtime)
                 end
             end
     
@@ -143,19 +136,12 @@ function love.draw()
     if ready_1km then
         graphics.print("Fastest 1km : " .. tostring( math.floor(fastest_1km * 100) / 100), 600, 100)
     end
-    -- if dragging then
-    --     graphics.print("dragging", 100, 100)
-    -- end
     graphics.setBackgroundColor(0.529, 0.808, 0.922)
     camera:set(gravity_angle)
     if parachute_deployed then
-        -- graphics.setColor(1, 0.5, 0.5)
-        -- graphics.print("Parachute deployed", 100, 100, 0, 4)
         graphics.setColor(1, 1, 1)
         graphics.draw(parachute_image, ball.body:getX(), ball.body:getY(), parachute_angle, 0.8, nil, 20, 125)
     end
-    -- graphics.setColor(0.75, 0, 0.75)
-    -- graphics.circle("fill", ball.body:getX(), ball.body:getY(), ball.shape:getRadius())
     graphics.setColor(1, 1, 1)
     graphics.draw(ball_image,ball.body:getX(), ball.body:getY(), ball.body:getAngle(), 0.55, nil, 50, 50 )
     ground:draw()
