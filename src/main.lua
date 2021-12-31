@@ -5,6 +5,7 @@ local graphics = love.graphics
 local METER_SIZE = 64
 local GRAVITY = 9.81 * METER_SIZE
 local PARACHUTE_DRAG = 2.0
+local METER_ORIGIN = 375
 local world
 local ball = {}
 local ground = require("ground")
@@ -17,6 +18,10 @@ local dragging = false
 local drag_x = 0.0
 local drag_y = 0.0
 local instructions = true
+local parachute_deploys = 0
+-- local fastest_meter = 0
+-- local fastest_100m = 0
+-- local fastest_1km = 0
 
 function gravity_x()
     return math.cos(gravity_angle) * GRAVITY
@@ -29,7 +34,7 @@ end
 function love.load()
     love.physics.setMeter(METER_SIZE)
     world = love.physics.newWorld(gravity_x(), gravity_y(), true)
-    ball.body = love.physics.newBody(world, 375, 30, "dynamic")
+    ball.body = love.physics.newBody(world, METER_ORIGIN, 30, "dynamic")
     ball.shape = love.physics.newCircleShape(25)
     ball.fixture = love.physics.newFixture(ball.body, ball.shape, 1)
     ball.fixture:setRestitution(0.6)
@@ -72,6 +77,7 @@ function love.update(dt)
     camera.y = ball_y
     if not parachute_deployed and ball_y <  200 then
         parachute_deployed = true
+        parachute_deploys = parachute_deploys + 1
         -- ball.body:setAngularVelocity(0)
         ball.body:setAngularDamping(0.9)
     end
@@ -88,10 +94,12 @@ function love.update(dt)
 end
 
 function love.draw()
+    graphics.setColor(1, 0.2, 0.2)
     if instructions then
-        graphics.setColor(1, 0.2, 0.2)
         graphics.print("Drag up/down to change angle", 100, 100)
     end
+    graphics.print("Parachutes: " .. tostring(parachute_deploys), 600, 25)
+    graphics.print("Distance  : " .. tostring( math.floor((ball.body:getX() - METER_ORIGIN) / METER_SIZE)), 600, 50)
     -- if dragging then
     --     graphics.print("dragging", 100, 100)
     -- end
