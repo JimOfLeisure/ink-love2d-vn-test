@@ -10,6 +10,8 @@ local ball = {}
 local ground = require("ground")
 local gravity_angle = math.pi / 2 - 0.2
 local parachute_deployed = true
+local parachute_image
+local parachute_angle = 0
 
 function love.load()
     love.physics.setMeter(METER_SIZE)
@@ -19,6 +21,7 @@ function love.load()
     ball.fixture = love.physics.newFixture(ball.body, ball.shape, 1)
     ball.fixture:setRestitution(0.6)
     ground:load(world)
+    parachute_image = graphics.newImage("parachute-icon.png")
 end
 
 function love.update(dt)
@@ -44,15 +47,18 @@ function love.update(dt)
     if parachute_deployed then
         local sx, sy = ball.body:getLinearVelocity()
         ball.body:applyForce(-sx * PARACHUTE_DRAG, -sy * PARACHUTE_DRAG)
+        parachute_angle = math.atan(sy / sx) -1.37 - 0.8
+        print(parachute_angle)
     end
 end
 
 function love.draw()
+    camera:set(gravity_angle)
     if parachute_deployed then
         graphics.setColor(1, 0.5, 0.5)
-        graphics.print("Parachute deployed", 100, 100, 0, 4)
+        -- graphics.print("Parachute deployed", 100, 100, 0, 4)
+        graphics.draw(parachute_image, ball.body:getX() - 60, ball.body:getY() - 100, parachute_angle, 0.8)
     end
-    camera:set(gravity_angle)
     graphics.setColor(0.75, 0, 0.75)
     graphics.circle("fill", ball.body:getX(), ball.body:getY(), ball.shape:getRadius())
     ground:draw()
