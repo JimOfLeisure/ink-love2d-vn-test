@@ -35,6 +35,9 @@ It took me far too long to do this. Rotating gravity was easy; rotating the came
 
 The ground is in several sections, and as the ball moves to the right, each section in turn will recreate itself to disappear from the left and appear at the right with a continuous bumpy surface. I think this is more efficient than continually removing and adding items to the table, even though I'm still creating and destroying the physics objects.
 
+### Invisible paracutes
+
+I'm pretty happy with the "parachute" physics. I also made adjustments to the ground appears solid and takes up more of the screen. I'm not drawing the parachute; I looked for some free art but haven't found any I don't have to sign up to use.
 
 ## Building
 
