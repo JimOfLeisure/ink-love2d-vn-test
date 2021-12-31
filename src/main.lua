@@ -17,9 +17,17 @@ local dragging = false
 local drag_x = 0.0
 local drag_y = 0.0
 
+function gravity_x()
+    return math.cos(gravity_angle) * GRAVITY
+end
+
+function gravity_y()
+    return math.sin(gravity_angle) * GRAVITY
+end
+
 function love.load()
     love.physics.setMeter(METER_SIZE)
-    world = love.physics.newWorld(math.cos(gravity_angle) * GRAVITY, math.sin(gravity_angle) * GRAVITY, true)
+    world = love.physics.newWorld(gravity_x(), gravity_y(), true)
     ball.body = love.physics.newBody(world, 375, 30, "dynamic")
     ball.shape = love.physics.newCircleShape(25)
     ball.fixture = love.physics.newFixture(ball.body, ball.shape, 1)
@@ -32,9 +40,28 @@ end
 function love.update(dt)
     world:update(dt)
     ground:update(ball.body:getX())
+    if dragging then
+        local x = love.mouse.getX()
+        local y = love.mouse.getY()
+
+        -- print(y - drag_y)
+        -- print(gravity_angle)
+        gravity_angle = gravity_angle + (y - drag_y) * 0.05
+        if gravity_angle < 1 then
+            gravity_angle = 1
+        else
+            if gravity_angle > 1.7 then
+                gravity_angle = 1.7
+            end
+        end
+        world:setGravity(gravity_x(), gravity_y())
+
+        drag_x = x
+        drag_y = y
+    end
     if ball.body:getY() > 750 then
         ball.body:setY(30)
-        ball.body:setX(375)
+        ball.body:setX(ball.body:getX() + 100)
         ball.body:setLinearVelocity(0, 0)
         ball.body:setAngularVelocity(0)
         camera.y = 0;
@@ -60,9 +87,9 @@ function love.update(dt)
 end
 
 function love.draw()
-    if dragging then
-        graphics.print("dragging", 100, 100)
-    end
+    -- if dragging then
+    --     graphics.print("dragging", 100, 100)
+    -- end
     graphics.setBackgroundColor(0.529, 0.808, 0.922)
     camera:set(gravity_angle)
     if parachute_deployed then
