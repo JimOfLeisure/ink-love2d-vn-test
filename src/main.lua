@@ -55,6 +55,7 @@ function love.update(dt)
 end
 
 function love.draw()
+    graphics.setBackgroundColor(0.529, 0.808, 0.922)
     camera:set(gravity_angle)
     if parachute_deployed then
         -- graphics.setColor(1, 0.5, 0.5)
@@ -65,7 +66,7 @@ function love.draw()
     -- graphics.setColor(0.75, 0, 0.75)
     -- graphics.circle("fill", ball.body:getX(), ball.body:getY(), ball.shape:getRadius())
     graphics.setColor(1, 1, 1)
-    graphics.draw(ball_image,ball.body:getX(), ball.body:getY(), ball.body:getAngle(), 0.6, nil, 50, 50 )
+    graphics.draw(ball_image,ball.body:getX(), ball.body:getY(), ball.body:getAngle(), 0.55, nil, 50, 50 )
     ground:draw()
     camera:unset()
 end
