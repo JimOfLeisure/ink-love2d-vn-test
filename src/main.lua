@@ -26,6 +26,8 @@ local history_100m = {}
 local history_1km = {}
 local current_meter = 0
 local game_start = true
+local ready_100m = false
+local ready_1km = false
 
 function gravity_x()
     return math.cos(gravity_angle) * GRAVITY
@@ -103,13 +105,24 @@ function love.update(dt)
         parachute_angle = math.atan(sy / sx) -1.37 - 0.8
     end
     if math.floor((ball_x - METER_ORIGIN) / METER_SIZE) ~= current_meter then
-        if current_meter > 100 then
+        if ready_100m or current_meter > 100 then
+            ready_100m = true
             local dtime = timer - history_100m[current_meter % 100]
             -- print (dtime)
             if dtime < fastest_100m then
                 fastest_100m = dtime
                 -- print(dtime)
             end
+            if ready_1km or current_meter > 1000 then
+                ready_1km = true
+                local dtime = timer - history_1km[current_meter % 1000]
+                -- print (dtime)
+                if dtime < fastest_1km then
+                    fastest_1km = dtime
+                    -- print(dtime)
+                end
+            end
+    
         end
         history_100m[current_meter % 100] = timer
         history_1km[current_meter % 1000] = timer
@@ -124,7 +137,12 @@ function love.draw()
     end
     graphics.print("Parachutes  : " .. tostring(parachute_deploys), 600, 25)
     graphics.print("Distance (m): " .. tostring( math.floor((ball.body:getX() - METER_ORIGIN) / METER_SIZE)), 600, 50)
-    graphics.print("Fastest 100m: " .. tostring( math.floor(fastest_100m * 100) / 100), 600, 75)
+    if ready_100m then
+        graphics.print("Fastest 100m: " .. tostring( math.floor(fastest_100m * 100) / 100), 600, 75)
+    end
+    if ready_1km then
+        graphics.print("Fastest 1km : " .. tostring( math.floor(fastest_1km * 100) / 100), 600, 100)
+    end
     -- if dragging then
     --     graphics.print("dragging", 100, 100)
     -- end
