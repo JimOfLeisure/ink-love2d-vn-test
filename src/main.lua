@@ -4,7 +4,7 @@ local graphics = love.graphics
 
 local METER_SIZE = 64
 local GRAVITY = 9.81 * METER_SIZE
-local PARACHUTE_DRAG = 2.5
+local PARACHUTE_DRAG = 2.0
 local world
 local ball = {}
 local ground = require("ground")

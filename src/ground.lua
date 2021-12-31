@@ -18,7 +18,7 @@ local function new_ground_section(x, y)
         table.insert(coords, i)
         table.insert(coords, -25 - (love.math.noise(origin + x + i) * NOISE_SCALE) * BUMP_SCALE)
     end
-    for _, e in ipairs({ 50, 300, -50, 300 }) do
+    for _, e in ipairs({ 50, 350, -50, 350 }) do
         table.insert(coords, e)
     end
     
@@ -30,7 +30,7 @@ end
 
 function Ground:load(physics_world)
     world = physics_world
-    for i=0,1000,100 do
+    for i=0,1100,100 do
         table.insert(ground_sections, new_ground_section(i, 500))
     end
 end
@@ -43,7 +43,7 @@ function Ground:update(float_x)
             section.fixture:destroy()
             -- section.shape:destroy()
             section.body:destroy()
-            ground_sections[i] = new_ground_section((math.floor(x / 100) * 100) + 600, 500)
+            ground_sections[i] = new_ground_section((math.floor(x / 100) * 100) + 700, 500)
         end
     end
 end

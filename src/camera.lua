@@ -9,8 +9,8 @@ local pop = graphics.pop
 local translate = graphics.translate
 local rotate = graphics.rotate
 local scale = graphics.scale
-local x_offset = graphics.getWidth() / 2
-local y_offset = graphics.getHeight() / 2
+local x_offset = graphics.getWidth() / 2 - 100
+local y_offset = graphics.getHeight() / 2 - 100
 
 function camera:set(angle)
     rotate(-(angle - (math.pi / 2)))
