@@ -47,8 +47,8 @@ function love.update(dt)
     if parachute_deployed then
         local sx, sy = ball.body:getLinearVelocity()
         ball.body:applyForce(-sx * PARACHUTE_DRAG, -sy * PARACHUTE_DRAG)
+        -- 1.37 is a quarter turn because 0 is to the right; 0.8 is because parachute image is diagonal
         parachute_angle = math.atan(sy / sx) -1.37 - 0.8
-        print(parachute_angle)
     end
 end
 
