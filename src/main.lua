@@ -4,10 +4,12 @@ local graphics = love.graphics
 
 local METER_SIZE = 64
 local GRAVITY = 9.81 * METER_SIZE
+local PARACHUTE_DRAG = 2.5
 local world
 local ball = {}
 local ground = require("ground")
 local gravity_angle = math.pi / 2 - 0.2
+local parachute_deployed = true
 
 function love.load()
     love.physics.setMeter(METER_SIZE)
@@ -32,9 +34,17 @@ function love.update(dt)
     camera.x = ball.body:getX()
     local ball_y = ball.body:getY()
     camera.y = ball_y
-    -- if ball_y > 550 then
-    --     camera.y = ball_y - 550
-    -- end
+    if not parachute_deployed and ball_y <  200 then
+        parachute_deployed = true
+        ball.body:setAngularVelocity(0)
+    end
+    if parachute_deployed and ball_y > 400 then
+        parachute_deployed = false
+    end
+    if parachute_deployed then
+        local sx, sy = ball.body:getLinearVelocity()
+        ball.body:applyForce(-sx * PARACHUTE_DRAG, -sy * PARACHUTE_DRAG)
+    end
 end
 
 function love.draw()
