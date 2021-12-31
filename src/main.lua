@@ -16,6 +16,7 @@ local ball_image
 local dragging = false
 local drag_x = 0.0
 local drag_y = 0.0
+local instructions = true
 
 function gravity_x()
     return math.cos(gravity_angle) * GRAVITY
@@ -87,6 +88,10 @@ function love.update(dt)
 end
 
 function love.draw()
+    if instructions then
+        graphics.setColor(1, 0.2, 0.2)
+        graphics.print("Drag up/down to change angle", 100, 100)
+    end
     -- if dragging then
     --     graphics.print("dragging", 100, 100)
     -- end
@@ -104,11 +109,13 @@ function love.draw()
     graphics.draw(ball_image,ball.body:getX(), ball.body:getY(), ball.body:getAngle(), 0.55, nil, 50, 50 )
     ground:draw()
     camera:unset()
+
 end
 
 function love.mousepressed(x, y, button)
     if button == 1 then
         dragging = true
+        instructions = false
         drag_x = x
         drag_y = y
     end
