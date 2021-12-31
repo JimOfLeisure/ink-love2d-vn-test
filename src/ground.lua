@@ -18,7 +18,7 @@ local function new_ground_section(x, y)
         table.insert(coords, i)
         table.insert(coords, -25 - (love.math.noise(origin + x + i) * NOISE_SCALE) * BUMP_SCALE)
     end
-    for _, e in ipairs({ 50, 350, -50, 350 }) do
+    for _, e in ipairs({ 50, 450, -50, 450 }) do
         table.insert(coords, e)
     end
     
