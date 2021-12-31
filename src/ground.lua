@@ -30,7 +30,7 @@ end
 
 function Ground:load(physics_world)
     world = physics_world
-    for i=0,800,100 do
+    for i=0,1000,100 do
         table.insert(ground_sections, new_ground_section(i, 500))
     end
 end
@@ -43,7 +43,7 @@ function Ground:update(float_x)
             section.fixture:destroy()
             -- section.shape:destroy()
             section.body:destroy()
-            ground_sections[i] = new_ground_section((math.floor(x / 100) * 100) + 400, 500)
+            ground_sections[i] = new_ground_section((math.floor(x / 100) * 100) + 600, 500)
         end
     end
 end
