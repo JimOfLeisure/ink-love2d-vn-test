@@ -39,6 +39,10 @@ The ground is in several sections, and as the ball moves to the right, each sect
 
 I'm pretty happy with the "parachute" physics. I also made adjustments to the ground appears solid and takes up more of the screen. I'm not drawing the parachute; I looked for some free art but haven't found any I don't have to sign up to use.
 
+### Check out my assets
+
+I found free art for the ball and parachute and made the background sky blue.
+
 ## Building
 
 The Love2d game is in src/ . The rest of this repo is for building it and preparing to deploy to Itch.io . It relies on node and npm to install Love.js .
