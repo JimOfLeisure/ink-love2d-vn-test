@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "mkdir -p release && npx love.js --compatibility --title \"Bumpy Road\" src release",
-    "zip": "rm -f bumpy-road.zip; pushd release; zip -9 ../bumpy-road.zip *; popd"
+    "zip": "rm -f bumpy-road.zip; pushd release; zip -9 -r ../bumpy-road.zip *; popd",
+    "love": "rm -f bumpy-road.love; pushd src; zip -9 -r ../bumpy-road.love *; popd"
   },
   "repository": {
     "type": "git",
