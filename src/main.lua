@@ -75,8 +75,11 @@ end
 
 function love.draw()
     graphics.setBackgroundColor(0.529, 0.808, 0.922)
+    graphics.push()
+    graphics.translate(0, 80 - (ball.body:getY() / 5))
     one:draw()
     two:draw()
+    graphics.pop()
     camera:set(gravity_angle)
     if parachute_deployed then
         graphics.setColor(1, 1, 1)
