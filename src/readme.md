@@ -1,5 +1,16 @@
 ## Credits / Asset Licensing
 
+### FreeSpriteChan.png and FreeSpriteKun2.png
+
+- Source: https://anankekeirin.itch.io/3-sprites-free-pack
+- License: See source link immediately above; do not redistribute from this game or source
+- The images in this repo have been downsampled and converted to PNG format from the original
+
+### src/narrator - Narrator, a Lua port of Ink
+
+- Source: https://github.com/astrochili/narrator
+- Copyright 2020 Roman Silin, MIT licensed (see LICENSE in src/narrator)
+
 ### Parachute-icon.png
 
 - Source: https://commons.wikimedia.org/wiki/File:Parachute-icon.png
@@ -12,7 +23,7 @@
 - Source: https://opengameart.org/content/soccer-ball
 - Marked as public domain
 
-### Lua code
+### Lua code not otherwise specified
 
 Copyright 2021 Jim "JimOfLeisure" Nelson
 
