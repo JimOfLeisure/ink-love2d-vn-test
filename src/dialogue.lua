@@ -1,7 +1,7 @@
 local Dialogue = {}
 
 local narrator = require('narrator.narrator')
-local book = require('stories.dialogue')
+local book = require('stories.main')
 local story = narrator.initStory(book)
 
 -- For optimization
