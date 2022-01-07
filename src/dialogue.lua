@@ -29,7 +29,10 @@ end
 ]]
 
 function Dialogue:next_paragraph()
-    -- TODO: actually handle when we're out of paragraphs
+    if paragraph_number >= #paragraphs then
+        print("END")
+        return
+    end
     paragraph_number = paragraph_number + 1
     print(paragraphs[paragraph_number].text)
 end
