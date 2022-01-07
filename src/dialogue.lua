@@ -25,7 +25,7 @@ function Dialogue:load()
     if story:canContinue() then
         load_paragraphs(story:continue())
     end
-    print(paragraphs[paragraph_number].text)
+    -- print(paragraphs[paragraph_number].text)
 end
 
 --[[
@@ -39,12 +39,14 @@ function Dialogue:next_paragraph()
         return
     end
     paragraph_number = paragraph_number + 1
-    print(paragraphs[paragraph_number].text)
+    -- print(paragraphs[paragraph_number].text)
 end
 
 function Dialogue:draw()
+    graphics.setColor(0, 0, 0, 0.7)
+    graphics.rectangle("fill", 0, 480, 800, 600)
     graphics.setColor(1, 1, 1, 1)
-    graphics.printf(paragraphs[paragraph_number].text, 10, 500, 700, "center")
+    graphics.printf(paragraphs[paragraph_number].text, 10, 500, 380, "center", 0, 2)
 end
 
 function Dialogue:keypressed(key)
