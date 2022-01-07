@@ -17,7 +17,18 @@ The Love2d game is in src/ . The rest of this repo is for building it and prepar
 - ink-love2d-vn-test.love can be played on any platform with Love2d installed
 - Caddyfile is to configure the caddy webserver which I am using locally. Just run `caddy` in the repo root folder, and the game will be available at http://localhost:2015 after release/ is populated by the build
 
+### Changing the dialogue
+
+See https://github.com/astrochili/narrator and src/makebook.lua . To use narrator to go from an ink file to the lua version, the lpeg library and a local Lua are needed as per the narrator project readme. CD into the src
+folder and `lua makebooklua`. It will interpret src/stories/dialogue.ink and save src/stories/dialogue.lua with
+the updated Lua file to use from the game.
+
 ## Credits / Asset Licensing
+
+### src/narrator - Narrator, a Lua port of Ink
+
+- Source: https://github.com/astrochili/narrator
+- Copyright 2020 Roman Silin, MIT licensed (see LICENSE in src/narrator)
 
 ### Parachute-icon.png
 
