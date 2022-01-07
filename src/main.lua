@@ -1,5 +1,6 @@
 require("camera")
 local dialogue = require("dialogue")
+local character = require("character")
 
 local graphics = love.graphics
 
@@ -15,6 +16,8 @@ local parachute_deployed = true
 local parachute_image
 local parachute_angle = 0
 local ball_image
+local one
+local two
 
 function gravity_x()
     return math.cos(gravity_angle) * GRAVITY
@@ -35,6 +38,8 @@ function love.load()
     parachute_image = graphics.newImage("assets/Parachute-icon.png")
     ball_image = graphics.newImage("assets/SoccerBall.png")
     dialogue:load()
+    one = character:new_character("assets/FreeSpriteChan.png", 400, 0)
+    two = character:new_character("assets/FreeSpriteKun2.png", 0, 0)
 end
 
 function love.update(dt)
@@ -70,6 +75,8 @@ end
 
 function love.draw()
     graphics.setBackgroundColor(0.529, 0.808, 0.922)
+    one:draw()
+    two:draw()
     camera:set(gravity_angle)
     if parachute_deployed then
         graphics.setColor(1, 1, 1)
