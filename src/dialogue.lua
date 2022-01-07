@@ -11,7 +11,12 @@ local paragraphs = {}
 local paragraph_number
 
 local function load_paragraphs(in_paragraphs)
-    paragraphs = in_paragraphs
+    paragraphs = in_paragraphs or {
+        {
+            text = "( END )",
+            tag = "",
+        },
+    }
     paragraph_number = 1
 end
 
@@ -30,7 +35,7 @@ end
 
 function Dialogue:next_paragraph()
     if paragraph_number >= #paragraphs then
-        print("END")
+        load_paragraphs(nil)
         return
     end
     paragraph_number = paragraph_number + 1
@@ -38,6 +43,8 @@ function Dialogue:next_paragraph()
 end
 
 function Dialogue:draw()
+    graphics.setColor(1, 1, 1, 1)
+    graphics.printf(paragraphs[paragraph_number].text, 10, 500, 700, "center")
 end
 
 function Dialogue:keypressed(key)

@@ -79,7 +79,7 @@ function love.draw()
     graphics.draw(ball_image,ball.body:getX(), ball.body:getY(), ball.body:getAngle(), 0.55, nil, 50, 50 )
     ground:draw()
     camera:unset()
-
+    dialogue.draw()
 end
 
 function love.keypressed(key)
