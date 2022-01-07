@@ -18,24 +18,6 @@ local parachute_deployed = true
 local parachute_image
 local parachute_angle = 0
 local ball_image
---[[
-local dragging = false
-local drag_x = 0.0
-local drag_y = 0.0
-local instructions = true
-local parachute_deploys = 0
-]]
---[[
-local fastest_meter = 0
-local fastest_100m = 99999
-local fastest_1km = 99999
-local history_100m = {}
-local history_1km = {}
-local current_meter = 0
-local game_start = true
-local ready_100m = false
-local ready_1km = false
-]]
 local text = ""
 
 function gravity_x()
@@ -56,31 +38,12 @@ function love.load()
     ground:load(world)
     parachute_image = graphics.newImage("Parachute-icon.png")
     ball_image = graphics.newImage("SoccerBall.png")
-    story.begin()
+    story:begin()
 end
 
 function love.update(dt)
     world:update(dt)
     ground:update(ball.body:getX())
-    --[[
-    if dragging then
-        local x = love.mouse.getX()
-        local y = love.mouse.getY()
-
-        gravity_angle = gravity_angle + (drag_y - y) * 0.01
-        if gravity_angle < 1 then
-            gravity_angle = 1
-        else
-            if gravity_angle > 1.7 then
-                gravity_angle = 1.7
-            end
-        end
-        world:setGravity(gravity_x(), gravity_y())
-
-        drag_x = x
-        drag_y = y
-    end
-    ]]
     if ball.body:getY() > 750 then
         ball.body:setY(30)
         ball.body:setX(ball.body:getX() + 100)
@@ -94,20 +57,12 @@ function love.update(dt)
     camera.y = ball_y
     if not parachute_deployed and ball_y <  200 then
         parachute_deployed = true
-        -- parachute_deploys = parachute_deploys + 1
         ball.body:setAngularDamping(0.9)
     end
     local timer = love.timer.getTime()
     if parachute_deployed and ball_y > 400 then
         parachute_deployed = false
         ball.body:setAngularDamping(0)
-        --[[
-        if game_start then
-            game_start = false
-            history_100m[0] = timer
-            history_1km[0] = timer
-        end
-        ]]
     end
     if parachute_deployed then
         local sx, sy = ball.body:getLinearVelocity()
@@ -115,45 +70,9 @@ function love.update(dt)
         -- 1.37 is a quarter turn because 0 is to the right; 0.8 is because parachute image is diagonal
         parachute_angle = math.atan(sy / sx) -1.37 - 0.8
     end
-    --[[
-    if math.floor((ball_x - METER_ORIGIN) / METER_SIZE) ~= current_meter then
-        if ready_100m or current_meter > 100 then
-            ready_100m = true
-            local dtime = timer - history_100m[current_meter % 100]
-            if dtime < fastest_100m then
-                fastest_100m = dtime
-            end
-            if ready_1km or current_meter > 1000 then
-                ready_1km = true
-                local dtime = timer - history_1km[current_meter % 1000]
-                if dtime < fastest_1km then
-                    fastest_1km = dtime
-                end
-            end
-    
-        end
-        history_100m[current_meter % 100] = timer
-        history_1km[current_meter % 1000] = timer
-        current_meter = current_meter + 1
-    end
-    ]]
 end
 
 function love.draw()
-    --[[
-    graphics.setColor(1, 0.2, 0.2)
-    if instructions then
-        graphics.print("Drag up/down to change angle", 100, 100)
-    end
-    graphics.print("Parachutes  : " .. tostring(parachute_deploys), 600, 25)
-    graphics.print("Distance (m): " .. tostring( math.floor((ball.body:getX() - METER_ORIGIN) / METER_SIZE)), 600, 50)
-    if ready_100m then
-        graphics.print("Fastest 100m: " .. tostring( math.floor(fastest_100m * 100) / 100), 600, 75)
-    end
-    if ready_1km then
-        graphics.print("Fastest 1km : " .. tostring( math.floor(fastest_1km * 100) / 100), 600, 100)
-    end
-    ]]
     graphics.setBackgroundColor(0.529, 0.808, 0.922)
     camera:set(gravity_angle)
     if parachute_deployed then
@@ -166,20 +85,3 @@ function love.draw()
     camera:unset()
 
 end
-
---[[
-function love.mousepressed(x, y, button)
-    if button == 1 then
-        dragging = true
-        instructions = false
-        drag_x = x
-        drag_y = y
-    end
-end
-
-function love.mousereleased(x, y, button)
-    if button == 1 then
-        dragging = false
-    end
-end
-]]
