@@ -1,5 +1,9 @@
 # Ink and Love2d Visual Novel Test
 
+This game is playable in-browser at https://jimofleisure.itch.io/a-bumpy-visual-novel .
+Currently space bar advances what little dialogue there is, and there is nothing else
+but to watch the ball bounce and parachute.
+
 I've never made a visual novel, and for reasons I don't want to take the easy/Ren'Py route.
 I want to add a dialogue engine to another framework. In this first try I'll use a Lua port
 of the Ink runtime to Love2d.
