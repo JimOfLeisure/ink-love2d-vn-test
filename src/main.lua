@@ -88,7 +88,7 @@ function love.update(dt)
     camera.y = ball_y
     if not parachute_deployed and ball_y <  200 then
         parachute_deployed = true
-        parachute_deploys = parachute_deploys + 1
+        -- parachute_deploys = parachute_deploys + 1
         ball.body:setAngularDamping(0.9)
     end
     local timer = love.timer.getTime()
