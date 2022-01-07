@@ -1,8 +1,5 @@
 require("camera")
--- Setting up Ink/Narrator
-local narrator = require('narrator.narrator')
-local book = require('stories.dialogue')
-local story = narrator.initStory(book)
+local dialogue = require("dialogue")
 
 local graphics = love.graphics
 
@@ -18,7 +15,6 @@ local parachute_deployed = true
 local parachute_image
 local parachute_angle = 0
 local ball_image
-local text = ""
 
 function gravity_x()
     return math.cos(gravity_angle) * GRAVITY
@@ -38,7 +34,7 @@ function love.load()
     ground:load(world)
     parachute_image = graphics.newImage("Parachute-icon.png")
     ball_image = graphics.newImage("SoccerBall.png")
-    story:begin()
+    dialogue:load()
 end
 
 function love.update(dt)
