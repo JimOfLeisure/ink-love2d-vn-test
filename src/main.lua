@@ -14,12 +14,15 @@ local parachute_deployed = true
 local parachute_image
 local parachute_angle = 0
 local ball_image
+--[[
 local dragging = false
 local drag_x = 0.0
 local drag_y = 0.0
 local instructions = true
 local parachute_deploys = 0
--- local fastest_meter = 0
+]]
+--[[
+local fastest_meter = 0
 local fastest_100m = 99999
 local fastest_1km = 99999
 local history_100m = {}
@@ -28,6 +31,7 @@ local current_meter = 0
 local game_start = true
 local ready_100m = false
 local ready_1km = false
+]]
 
 function gravity_x()
     return math.cos(gravity_angle) * GRAVITY
@@ -52,6 +56,7 @@ end
 function love.update(dt)
     world:update(dt)
     ground:update(ball.body:getX())
+    --[[
     if dragging then
         local x = love.mouse.getX()
         local y = love.mouse.getY()
@@ -69,6 +74,7 @@ function love.update(dt)
         drag_x = x
         drag_y = y
     end
+    ]]
     if ball.body:getY() > 750 then
         ball.body:setY(30)
         ball.body:setX(ball.body:getX() + 100)
@@ -89,11 +95,13 @@ function love.update(dt)
     if parachute_deployed and ball_y > 400 then
         parachute_deployed = false
         ball.body:setAngularDamping(0)
+        --[[
         if game_start then
             game_start = false
             history_100m[0] = timer
             history_1km[0] = timer
         end
+        ]]
     end
     if parachute_deployed then
         local sx, sy = ball.body:getLinearVelocity()
@@ -101,6 +109,7 @@ function love.update(dt)
         -- 1.37 is a quarter turn because 0 is to the right; 0.8 is because parachute image is diagonal
         parachute_angle = math.atan(sy / sx) -1.37 - 0.8
     end
+    --[[
     if math.floor((ball_x - METER_ORIGIN) / METER_SIZE) ~= current_meter then
         if ready_100m or current_meter > 100 then
             ready_100m = true
@@ -121,9 +130,11 @@ function love.update(dt)
         history_1km[current_meter % 1000] = timer
         current_meter = current_meter + 1
     end
+    ]]
 end
 
 function love.draw()
+    --[[
     graphics.setColor(1, 0.2, 0.2)
     if instructions then
         graphics.print("Drag up/down to change angle", 100, 100)
@@ -136,6 +147,7 @@ function love.draw()
     if ready_1km then
         graphics.print("Fastest 1km : " .. tostring( math.floor(fastest_1km * 100) / 100), 600, 100)
     end
+    ]]
     graphics.setBackgroundColor(0.529, 0.808, 0.922)
     camera:set(gravity_angle)
     if parachute_deployed then
@@ -149,6 +161,7 @@ function love.draw()
 
 end
 
+--[[
 function love.mousepressed(x, y, button)
     if button == 1 then
         dragging = true
@@ -163,3 +176,4 @@ function love.mousereleased(x, y, button)
         dragging = false
     end
 end
+]]
