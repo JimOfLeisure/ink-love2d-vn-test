@@ -28,7 +28,20 @@ function Dialogue:update(dt)
 end
 ]]
 
+function Dialogue:next_paragraph()
+    -- TODO: actually handle when we're out of paragraphs
+    paragraph_number = paragraph_number + 1
+    print(paragraphs[paragraph_number].text)
+end
+
 function Dialogue:draw()
+end
+
+function Dialogue:keypressed(key)
+    if love.keyboard.isDown("space") then
+        self:next_paragraph()
+    end
+
 end
 
 return Dialogue

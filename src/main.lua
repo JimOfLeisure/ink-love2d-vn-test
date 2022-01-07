@@ -81,3 +81,7 @@ function love.draw()
     camera:unset()
 
 end
+
+function love.keypressed(key)
+    dialogue:keypressed(key)
+end
