@@ -4,8 +4,8 @@ local graphics = love.graphics
 
 -- add to noise parameter to randomize the noise results between games
 local origin = (love.math.random() -0.5) * 3000
-local NOISE_SCALE = 1
-local BUMP_SCALE = 20
+local NOISE_SCALE = 0.005
+local BUMP_SCALE = 30
 local ground_sections = {}
 local world
 
@@ -16,7 +16,7 @@ local function new_ground_section(x, y)
     local coords = {}
     for i=-50,50,20 do
         table.insert(coords, i)
-        table.insert(coords, -25 - (love.math.noise(origin + x + i) * NOISE_SCALE) * BUMP_SCALE)
+        table.insert(coords, -25 - (love.math.noise(origin + ((x + i) * NOISE_SCALE)) * BUMP_SCALE))
     end
     for _, e in ipairs({ 50, 450, -50, 450 }) do
         table.insert(coords, e)
