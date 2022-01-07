@@ -20,7 +20,7 @@ The Love2d game is in src/ . The rest of this repo is for building it and prepar
 ### Changing the dialogue
 
 See https://github.com/astrochili/narrator and src/makebook.lua . To use narrator to go from an ink file to the lua version, the lpeg library and a local Lua are needed as per the narrator project readme. CD into the src
-folder and `lua makebooklua`. It will interpret src/stories/dialogue.ink and save src/stories/dialogue.lua with
+folder and `lua makebooklua`. It will interpret src/stories/main.ink and save src/stories/main.lua with
 the updated Lua file to use from the game.
 
 ## Credits / Asset Licensing
