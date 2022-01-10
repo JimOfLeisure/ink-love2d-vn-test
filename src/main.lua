@@ -21,7 +21,12 @@ local two
 
 local sky_shader = graphics.newShader([[
     vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords ) {
-        return vec4(color.r, color.g, color.b, color.a > 0.1? color.a : 0.5);
+        vec4 pixel = Texel(texture, texture_coords);
+        //return vec4(pixel.r, pixel.g, pixel.b, pixel.a < 0.1? pixel.a : 0.5);
+        // return vec4(color.r, color.g, color.b, color.a < 0.1? color.a : 0.5);
+        return vec4(color.r, color.g, color.b, color.a);
+        //return pixel;
+        return color;
     }
 ]])
 function gravity_x()
@@ -79,7 +84,11 @@ function love.update(dt)
 end
 
 function love.draw()
-    graphics.setBackgroundColor(0.529, 0.808, 0.922)
+    graphics.setShader(sky_shader)
+    -- graphics.setBackgroundColor(0.529, 0.808, 0.922)
+    graphics.setColor(0.529, 0.808, 0.922)
+    graphics.rectangle("fill", 0, 0, graphics.getWidth(), graphics.getHeight())
+    graphics.setShader()
     graphics.push()
     graphics.translate(0, 80 - (ball.body:getY() / 5))
     one:draw()
@@ -91,9 +100,7 @@ function love.draw()
         graphics.draw(parachute_image, ball.body:getX(), ball.body:getY(), parachute_angle, 0.8, nil, 20, 125)
     end
     graphics.setColor(1, 1, 1)
-    graphics.setShader(sky_shader)
     graphics.draw(ball_image,ball.body:getX(), ball.body:getY(), ball.body:getAngle(), 0.55, nil, 50, 50 )
-    graphics.setShader()
     ground:draw()
     camera:unset()
     dialogue.draw()
