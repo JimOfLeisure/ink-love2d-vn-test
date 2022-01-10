@@ -19,6 +19,11 @@ local ball_image
 local one
 local two
 
+local sky_shader = graphics.newShader([[
+    vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords ) {
+        return vec4(color.r, color.g, color.b, color.a > 0.1? color.a : 0.5);
+    }
+]])
 function gravity_x()
     return math.cos(gravity_angle) * GRAVITY
 end
@@ -86,7 +91,9 @@ function love.draw()
         graphics.draw(parachute_image, ball.body:getX(), ball.body:getY(), parachute_angle, 0.8, nil, 20, 125)
     end
     graphics.setColor(1, 1, 1)
+    graphics.setShader(sky_shader)
     graphics.draw(ball_image,ball.body:getX(), ball.body:getY(), ball.body:getAngle(), 0.55, nil, 50, 50 )
+    graphics.setShader()
     ground:draw()
     camera:unset()
     dialogue.draw()
