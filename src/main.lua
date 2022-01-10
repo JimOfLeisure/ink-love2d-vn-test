@@ -38,10 +38,10 @@ local ball_shader = graphics.newShader([[
     vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords ) {
         float dist = distance(texture_coords, vec2(u_texture_size.x, 0)) / max(u_texture_size.x, u_texture_size.y);
         dist = distance(screen_coords, u_highlight_pos) / max(u_texture_size.x, u_texture_size.y);
-        //dist = dist * u_screen_size.x / u_texture_size.x;
-        //dist = 1 - clamp(dist, 0.0, 0.4);
-        dist = dist / 8;
-        dist = sin(screen_coords.x / 10);
+        dist = dist * 0.8 - 0.2;
+        dist = 1 - clamp(dist, 0.0, 0.8);
+        // dist = dist / 8;
+        // dist = sin(screen_coords.x / 10);
         vec2 foo = u_screen_size;
         vec4 pixel = Texel(texture, texture_coords);
         return vec4(dist, dist, dist, pixel.a) * color;
@@ -129,7 +129,9 @@ function love.draw()
     graphics.setShader(ball_shader)
     ball_shader:send("u_screen_size", { graphics.getWidth(), graphics.getHeight()})
     ball_shader:send("u_texture_size", { ball_image:getWidth(), ball_image:getHeight()})
-    ball_shader:send("u_highlight_pos", { ball.body:getX() + ball_image:getWidth(), ball.body:getY() - ball_image:getHeight() })
+    -- ball_shader:send("u_highlight_pos", { ball.body:getX() + ball_image:getWidth(), ball.body:getY() - ball_image:getHeight() })
+    -- ball_shader:send("u_highlight_pos", { graphics.getWidth() / 2 - 100 + ball_image:getWidth(), graphics.getHeight() / 2 - 100 - ball_image:getHeight() })
+    ball_shader:send("u_highlight_pos", { graphics.getWidth() / 2 - 100, graphics.getHeight() / 2 - 100 })
 
     graphics.setColor(1, 1, 1)
     graphics.draw(ball_image,ball.body:getX(), ball.body:getY(), ball.body:getAngle(), 0.55, nil, 50, 50 )
