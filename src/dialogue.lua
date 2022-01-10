@@ -48,7 +48,7 @@ end
 function Dialogue:draw()
     graphics.setFont(font)
     graphics.setColor(0, 0, 0, 0.7)
-    graphics.rectangle("fill", 10, 480, 780, 110)
+    graphics.rectangle("fill", 10, 480, 780, 110, 15)
     graphics.setColor(1, 1, 1, 1)
     graphics.printf(paragraphs[paragraph_number].text, 10, 500, 790, "center")
 end
