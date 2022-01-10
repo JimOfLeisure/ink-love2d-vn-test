@@ -20,13 +20,21 @@ local one
 local two
 
 local sky_shader = graphics.newShader([[
+    extern vec2 u_screen_size;
+
     vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords ) {
+        float dist = distance(screen_coords, vec2(u_screen_size.x, 0)) / max(u_screen_size.x, u_screen_size.y);
+        dist = dist * 1.5;
+        dist = 1 - clamp(dist, 0.0, 0.4);
+        float foo = screen_coords.x / u_screen_size.x;
         vec4 pixel = Texel(texture, texture_coords);
-        //return vec4(pixel.r, pixel.g, pixel.b, pixel.a < 0.1? pixel.a : 0.5);
+        // return vec4(pixel.r, pixel.g, pixel.b, pixel.a < 0.1? pixel.a : 0.5);
         // return vec4(color.r, color.g, color.b, color.a < 0.1? color.a : 0.5);
-        return vec4(color.r, color.g, color.b, color.a);
+        // return vec4(color.r, color.g, color.b, color.a);
         //return pixel;
-        return color;
+        // return color;
+        return vec4(dist, dist, dist, 1.0) * color;
+        // return vec4(foo, foo, foo, 1.0);
     }
 ]])
 function gravity_x()
@@ -85,7 +93,8 @@ end
 
 function love.draw()
     graphics.setShader(sky_shader)
-    -- graphics.setBackgroundColor(0.529, 0.808, 0.922)
+    sky_shader:send("u_screen_size", { graphics.getWidth(), graphics.getHeight()})
+    graphics.setBackgroundColor(0.529, 0.808, 0.922)
     graphics.setColor(0.529, 0.808, 0.922)
     graphics.rectangle("fill", 0, 0, graphics.getWidth(), graphics.getHeight())
     graphics.setShader()
