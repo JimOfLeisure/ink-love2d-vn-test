@@ -29,6 +29,20 @@ local sky_shader = graphics.newShader([[
         return vec4(dist, dist, dist, 1.0) * color;
     }
 ]])
+
+local ball_shader = graphics.newShader([[
+    extern vec2 u_screen_size;
+    extern vec2 u_texture_size;
+
+    vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords ) {
+        float dist = distance(screen_coords, vec2(u_screen_size.x, 0)) / max(u_screen_size.x, u_screen_size.y);
+        dist = dist * u_screen_size.x / u_texture_size.x;
+        dist = 1 - clamp(dist, 0.0, 0.4);
+        vec4 pixel = Texel(texture, texture_coords);
+        return vec4(dist, dist, dist, pixel.a) * color;
+    }
+]])
+
 function gravity_x()
     return math.cos(gravity_angle) * GRAVITY
 end
@@ -86,23 +100,39 @@ end
 function love.draw()
     graphics.setShader(sky_shader)
     sky_shader:send("u_screen_size", { graphics.getWidth(), graphics.getHeight()})
+
     graphics.setColor(0.529, 0.808, 0.922)
     graphics.rectangle("fill", 0, 0, graphics.getWidth(), graphics.getHeight())
     graphics.setShader()
+
     graphics.push()
+
     graphics.translate(0, 80 - (ball.body:getY() / 5))
     one:draw()
     two:draw()
+
     graphics.pop()
+
     camera:set(gravity_angle)
+
     if parachute_deployed then
         graphics.setColor(1, 1, 1)
         graphics.draw(parachute_image, ball.body:getX(), ball.body:getY(), parachute_angle, 0.8, nil, 20, 125)
     end
+
+    graphics.setShader(ball_shader)
+    ball_shader:send("u_screen_size", { graphics.getWidth(), graphics.getHeight()})
+    ball_shader:send("u_texture_size", { ball_image:getWidth(), ball_image:getHeight()})
+
     graphics.setColor(1, 1, 1)
     graphics.draw(ball_image,ball.body:getX(), ball.body:getY(), ball.body:getAngle(), 0.55, nil, 50, 50 )
+
+    graphics.setShader()
+
     ground:draw()
+
     camera:unset()
+
     dialogue.draw()
 end
 
