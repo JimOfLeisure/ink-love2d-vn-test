@@ -66,7 +66,6 @@ function love.load()
     dialogue:load()
     one = character:new_character("assets/FreeSpriteChan.png", 400, 0)
     two = character:new_character("assets/FreeSpriteKun2.png", 0, 0)
-    print(ball_image:getWidth(), ball_image:getHeight())
 end
 
 function love.update(dt)

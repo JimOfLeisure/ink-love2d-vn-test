@@ -9,6 +9,8 @@ local graphics = love.graphics
 
 local paragraphs = {}
 local paragraph_number
+local font
+
 
 local function load_paragraphs(in_paragraphs)
     paragraphs = in_paragraphs or {
@@ -26,6 +28,7 @@ function Dialogue:load()
         load_paragraphs(story:continue())
     end
     -- print(paragraphs[paragraph_number].text)
+    font = graphics.newFont(28)
 end
 
 --[[
@@ -43,10 +46,11 @@ function Dialogue:next_paragraph()
 end
 
 function Dialogue:draw()
+    graphics.setFont(font)
     graphics.setColor(0, 0, 0, 0.7)
-    graphics.rectangle("fill", 0, 480, 800, 600)
+    graphics.rectangle("fill", 10, 480, 780, 110)
     graphics.setColor(1, 1, 1, 1)
-    graphics.printf(paragraphs[paragraph_number].text, 10, 500, 380, "center", 0, 2)
+    graphics.printf(paragraphs[paragraph_number].text, 10, 500, 790, "center")
 end
 
 function Dialogue:keypressed(key)
