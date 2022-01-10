@@ -33,11 +33,16 @@ local sky_shader = graphics.newShader([[
 local ball_shader = graphics.newShader([[
     extern vec2 u_screen_size;
     extern vec2 u_texture_size;
+    extern vec2 u_highlight_pos;
 
     vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords ) {
-        float dist = distance(screen_coords, vec2(u_screen_size.x, 0)) / max(u_screen_size.x, u_screen_size.y);
-        dist = dist * u_screen_size.x / u_texture_size.x;
-        dist = 1 - clamp(dist, 0.0, 0.4);
+        float dist = distance(texture_coords, vec2(u_texture_size.x, 0)) / max(u_texture_size.x, u_texture_size.y);
+        dist = distance(screen_coords, u_highlight_pos) / max(u_texture_size.x, u_texture_size.y);
+        //dist = dist * u_screen_size.x / u_texture_size.x;
+        //dist = 1 - clamp(dist, 0.0, 0.4);
+        dist = dist / 8;
+        dist = sin(screen_coords.x / 10);
+        vec2 foo = u_screen_size;
         vec4 pixel = Texel(texture, texture_coords);
         return vec4(dist, dist, dist, pixel.a) * color;
     }
@@ -64,6 +69,7 @@ function love.load()
     dialogue:load()
     one = character:new_character("assets/FreeSpriteChan.png", 400, 0)
     two = character:new_character("assets/FreeSpriteKun2.png", 0, 0)
+    print(ball_image:getWidth(), ball_image:getHeight())
 end
 
 function love.update(dt)
@@ -123,6 +129,7 @@ function love.draw()
     graphics.setShader(ball_shader)
     ball_shader:send("u_screen_size", { graphics.getWidth(), graphics.getHeight()})
     ball_shader:send("u_texture_size", { ball_image:getWidth(), ball_image:getHeight()})
+    ball_shader:send("u_highlight_pos", { ball.body:getX() + ball_image:getWidth(), ball.body:getY() - ball_image:getHeight() })
 
     graphics.setColor(1, 1, 1)
     graphics.draw(ball_image,ball.body:getX(), ball.body:getY(), ball.body:getAngle(), 0.55, nil, 50, 50 )
