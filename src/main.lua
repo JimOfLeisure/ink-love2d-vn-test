@@ -25,7 +25,7 @@ local sky_shader = graphics.newShader([[
     vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords ) {
         float dist = distance(screen_coords, vec2(u_screen_size.x, 0)) / max(u_screen_size.x, u_screen_size.y);
         dist = dist * 1.5;
-        dist = 1 - clamp(dist, 0.0, 0.4);
+        dist = 1.0 - clamp(dist, 0.0, 0.4);
         return vec4(dist, dist, dist, 1.0) * color;
     }
 ]])
@@ -37,11 +37,10 @@ local ball_shader = graphics.newShader([[
     vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords ) {
         float dist = distance(screen_coords, u_highlight_pos) / max(u_texture_size.x, u_texture_size.y);
         dist = dist * 0.8 - 0.2;
-        dist = 1 - clamp(dist, 0.0, 0.8);
+        dist = 1.0 - clamp(dist, 0.0, 0.8);
         vec4 pixel = Texel(texture, texture_coords);
         pixel = pixel * vec4(dist, dist, dist, 1.0);
         return pixel * color;
-        //return vec4(dist, dist, dist, pixel.a) * color;
     }
 ]])
 
