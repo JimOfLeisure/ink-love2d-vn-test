@@ -126,7 +126,18 @@ function love.update(dt)
 end
 
 function love.draw()
+    graphics.setBackgroundColor(0.529, 0.808, 0.922)
+    camera:set(gravity_angle)
+    if parachute_deployed then
+        graphics.setColor(1, 1, 1)
+        graphics.draw(parachute_image, ball.body:getX(), ball.body:getY(), parachute_angle, 0.8, nil, 20, 125)
+    end
+    graphics.setColor(1, 1, 1)
+    graphics.draw(ball_image,ball.body:getX(), ball.body:getY(), ball.body:getAngle(), 0.55, nil, 50, 50 )
+    ground:draw()
+    camera:unset()
     graphics.setFont(font)
+
     if instructions then
         graphics.setColor(1, 0.2, 0.2)
         graphics.print("Drag up/down to change angle", 100, 100)
@@ -140,17 +151,6 @@ function love.draw()
     if ready_1km then
         graphics.print("Fastest 1km : " .. tostring( math.floor(fastest_1km * 100) / 100), 580, 100)
     end
-    graphics.setBackgroundColor(0.529, 0.808, 0.922)
-    camera:set(gravity_angle)
-    if parachute_deployed then
-        graphics.setColor(1, 1, 1)
-        graphics.draw(parachute_image, ball.body:getX(), ball.body:getY(), parachute_angle, 0.8, nil, 20, 125)
-    end
-    graphics.setColor(1, 1, 1)
-    graphics.draw(ball_image,ball.body:getX(), ball.body:getY(), ball.body:getAngle(), 0.55, nil, 50, 50 )
-    ground:draw()
-    camera:unset()
-
 end
 
 function love.mousepressed(x, y, button)
