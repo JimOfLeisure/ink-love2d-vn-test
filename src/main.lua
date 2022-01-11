@@ -28,6 +28,7 @@ local current_meter = 0
 local game_start = true
 local ready_100m = false
 local ready_1km = false
+local font
 
 function gravity_x()
     return math.cos(gravity_angle) * GRAVITY
@@ -47,6 +48,7 @@ function love.load()
     ground:load(world)
     parachute_image = graphics.newImage("Parachute-icon.png")
     ball_image = graphics.newImage("SoccerBall.png")
+    font = graphics.newFont(20)
 end
 
 function love.update(dt)
@@ -124,17 +126,19 @@ function love.update(dt)
 end
 
 function love.draw()
-    graphics.setColor(1, 0.2, 0.2)
+    graphics.setFont(font)
     if instructions then
+        graphics.setColor(1, 0.2, 0.2)
         graphics.print("Drag up/down to change angle", 100, 100)
     end
-    graphics.print("Parachutes  : " .. tostring(parachute_deploys), 600, 25)
-    graphics.print("Distance (m): " .. tostring( math.floor((ball.body:getX() - METER_ORIGIN) / METER_SIZE)), 600, 50)
+    graphics.setColor(0.2, 0.2, 0.2)
+    graphics.print("Parachutes  : " .. tostring(parachute_deploys), 580, 25)
+    graphics.print("Distance (m): " .. tostring( math.floor((ball.body:getX() - METER_ORIGIN) / METER_SIZE)), 580, 50)
     if ready_100m then
-        graphics.print("Fastest 100m: " .. tostring( math.floor(fastest_100m * 100) / 100), 600, 75)
+        graphics.print("Fastest 100m: " .. tostring( math.floor(fastest_100m * 100) / 100), 580, 75)
     end
     if ready_1km then
-        graphics.print("Fastest 1km : " .. tostring( math.floor(fastest_1km * 100) / 100), 600, 100)
+        graphics.print("Fastest 1km : " .. tostring( math.floor(fastest_1km * 100) / 100), 580, 100)
     end
     graphics.setBackgroundColor(0.529, 0.808, 0.922)
     camera:set(gravity_angle)
