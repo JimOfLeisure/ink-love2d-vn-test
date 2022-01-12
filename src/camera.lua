@@ -10,7 +10,7 @@ local translate = graphics.translate
 local rotate = graphics.rotate
 local scale = graphics.scale
 local x_offset = graphics.getWidth() / 2 - 100
-local y_offset = graphics.getHeight() / 2 - 100
+local y_offset = graphics.getHeight() / 2
 
 function camera:set(angle)
     push()

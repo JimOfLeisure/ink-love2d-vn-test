@@ -102,6 +102,9 @@ function love.update(dt)
         ball.body:applyForce(-sx * PARACHUTE_DRAG, -sy * PARACHUTE_DRAG)
         -- 1.37 is a quarter turn because 0 is to the right; 0.8 is because parachute image is diagonal
         parachute_angle = math.atan(sy / sx) -1.37 - 0.8
+        if sx < 0 then
+            parachute_angle = parachute_angle + math.pi
+        end
     end
     if math.floor((ball_x - METER_ORIGIN) / METER_SIZE) ~= current_meter then
         if ready_100m or current_meter > 100 then
