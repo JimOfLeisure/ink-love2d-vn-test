@@ -14,9 +14,9 @@ local y_offset = graphics.getHeight() / 2 - 100
 
 function camera:set(angle)
     push()
+    translate(x_offset,y_offset)
     rotate(-(angle - (math.pi / 2)))
     translate(-self.x, -self.y)
-    translate(x_offset,y_offset)
 end
 
 function camera:unset()
