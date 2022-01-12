@@ -9,7 +9,8 @@ local METER_ORIGIN = 375
 local world
 local ball = {}
 local ground = require("ground")
-local gravity_angle = math.pi / 2 - 0.2
+local default_angle = math.pi / 2 - 0.2
+local gravity_angle = default_angle
 local parachute_deployed = true
 local parachute_image
 local parachute_angle = 0
@@ -29,6 +30,8 @@ local game_start = true
 local ready_100m = false
 local ready_1km = false
 local font
+local min_angle = 0.2
+local max_angle = 2.0
 
 local sky_shader = graphics.newShader([[
     extern vec2 u_screen_size;
@@ -84,14 +87,13 @@ function love.update(dt)
         local y = love.mouse.getY()
 
         gravity_angle = gravity_angle + (drag_y - y) * 0.01
-        if gravity_angle < 1 then
-            gravity_angle = 1
+        if gravity_angle < min_angle then
+            gravity_angle = min_angle
         else
-            if gravity_angle > 1.7 then
-                gravity_angle = 1.7
+            if gravity_angle > max_angle then
+                gravity_angle = max_angle
             end
         end
-        world:setGravity(gravity_x(), gravity_y())
 
         drag_x = x
         drag_y = y
@@ -102,7 +104,9 @@ function love.update(dt)
         ball.body:setLinearVelocity(0, 0)
         ball.body:setAngularVelocity(0)
         camera.y = 0;
+        gravity_angle = default_angle
     end
+    world:setGravity(gravity_x(), gravity_y())
     local ball_x = ball.body:getX()
     camera.x = ball_x
     local ball_y = ball.body:getY()
@@ -181,17 +185,18 @@ function love.draw()
     graphics.setFont(font)
 
     if instructions then
-        graphics.setColor(1, 0.2, 0.2)
+        graphics.setColor(0.8, 0.1, 0.1)
         graphics.print("Drag up/down to change angle", 100, 100)
     end
     graphics.setColor(0.2, 0.2, 0.2)
-    graphics.print("Parachutes  : " .. tostring(parachute_deploys), 580, 25)
-    graphics.print("Distance (m): " .. tostring( math.floor((ball.body:getX() - METER_ORIGIN) / METER_SIZE)), 580, 50)
+    graphics.print(tostring(math.floor(-math.deg(gravity_angle - (math.pi / 2))* 100) /  100) .. "°", 580, 25)
+    graphics.print("Parachutes  : " .. tostring(parachute_deploys), 580, 50)
+    graphics.print("Distance (m): " .. tostring( math.floor((ball.body:getX() - METER_ORIGIN) / METER_SIZE)), 580, 75)
     if ready_100m then
-        graphics.print("Fastest 100m: " .. tostring( math.floor(fastest_100m * 100) / 100), 580, 75)
+        graphics.print("Fastest 100m: " .. tostring( math.floor(fastest_100m * 100) / 100), 580, 100)
     end
     if ready_1km then
-        graphics.print("Fastest 1km : " .. tostring( math.floor(fastest_1km * 100) / 100), 580, 100)
+        graphics.print("Fastest 1km : " .. tostring( math.floor(fastest_1km * 100) / 100), 580, 125)
     end
 end
 
