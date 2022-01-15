@@ -26,6 +26,7 @@ Data = {
         meter_size = meter_size,
         gravity = 9.81 * meter_size
     },
+    vn = {},
     world = love.physics.newWorld(),
 }
 

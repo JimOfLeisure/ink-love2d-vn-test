@@ -21,7 +21,8 @@ local function load_paragraphs(in_paragraphs)
             tag = "",
         },
     }
-    paragraph_number = 1
+    -- setting to 0, should immediately advance before using
+    paragraph_number = 0
 end
 
 function Dialogue:new(data, book_path)
@@ -33,18 +34,17 @@ function Dialogue:new(data, book_path)
         self.story:begin()
         if self.story:canContinue() then
             load_paragraphs(self.story:continue())
+            self:next_paragraph()
         end
-        -- print(paragraphs[paragraph_number].text)
         font = love.graphics.newFont(28)
     end
 
     function obj:next_paragraph()
         if paragraph_number >= #paragraphs then
             load_paragraphs(nil)
-            return
         end
         paragraph_number = paragraph_number + 1
-        -- print(paragraphs[paragraph_number].text)
+        data.vn.paragraph = paragraphs[paragraph_number]
     end
         
     function obj:draw()
