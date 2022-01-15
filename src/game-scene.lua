@@ -13,12 +13,18 @@ local Ground = require("ground")
 local data = require("game-scene-data")
 local Screen_text = require("screen-text")
 
-local camera_on = Game_component:new()
-function camera_on:draw()
+local main_camera_on = Game_component:new()
+function main_camera_on:draw()
     love.graphics.push()
     love.graphics.translate(data.conf.x_offset(),data.conf.y_offset())
     love.graphics.rotate(-(data.angle - (math.pi / 2)))
     love.graphics.translate(-data.pos.x, -data.pos.y)
+end
+
+local far_camera_on = Game_component:new()
+function far_camera_on:draw()
+    love.graphics.push()
+    love.graphics.translate(0, 80 - (data.pos.y / 5))
 end
 
 local camera_off = Game_component:new()
@@ -28,8 +34,6 @@ end
 
 function Game_scene:new()
     local gs = Game_component:new()
-    -- local foo = love.graphics.newImage("assets/SoccerBall.png")
-    -- print(foo)
     
     -- want named reference to the ball
     gs.ball = Ball:new(data)
@@ -44,9 +48,11 @@ function Game_scene:new()
     function gs:load()
         love.physics.setMeter(data.conf.meter_size)
         table.insert(self.components, Sky:new())
+        table.insert(self.components, far_camera_on)
         table.insert(self.components, self.one)
         table.insert(self.components, self.two)
-        table.insert(self.components, camera_on)
+        table.insert(self.components, camera_off)
+        table.insert(self.components, main_camera_on)
         table.insert(self.components, Parachute:new(data, self.ball))
         table.insert(self.components, self.ball)
         -- TODO: parameterize x/i and y
@@ -54,7 +60,7 @@ function Game_scene:new()
             table.insert(self.components, Ground:new(data, Vec2:new(i, 500)))
         end
         table.insert(self.components, camera_off)
-        table.insert(self.components, Screen_text:new(data, self.ball))
+        -- table.insert(self.components, Screen_text:new(data, self.ball))
 
         for _, component in ipairs(self.components) do
             component:load()
