@@ -18,7 +18,7 @@ local function load_paragraphs(in_paragraphs)
     paragraphs = in_paragraphs or {
         {
             text = "( END )",
-            tag = "",
+            tags = {},
         },
     }
     -- setting to 0, should immediately advance before using
@@ -27,6 +27,7 @@ end
 
 function Dialogue:new(data, book_path)
     obj = Game_component:new()
+    obj.data = data
     local book = require(book_path)
     obj.story = narrator.initStory(book)
 
@@ -44,7 +45,7 @@ function Dialogue:new(data, book_path)
             load_paragraphs(nil)
         end
         paragraph_number = paragraph_number + 1
-        data.vn.paragraph = paragraphs[paragraph_number]
+        self.data.vn.paragraph = paragraphs[paragraph_number]
     end
         
     function obj:draw()

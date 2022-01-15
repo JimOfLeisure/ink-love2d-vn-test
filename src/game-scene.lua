@@ -40,8 +40,8 @@ function Game_scene:new()
     gs.ball = Ball:new(data)
     gs.dialogue = Dialogue:new(data, "stories.main")
     gs.components = {}
-    gs.one = Character:new(data, "assets/FreeSpriteChan.png", Vec2:new(400, 0))
-    gs.two = Character:new(data, "assets/FreeSpriteKun2.png", Vec2:new(0, 0))    
+    gs.one = Character:new(data, "assets/FreeSpriteChan.png", Vec2:new(400, 0), "one")
+    gs.two = Character:new(data, "assets/FreeSpriteKun2.png", Vec2:new(0, 0), "two")    
 
     function gs:set_gravity()
         data.world:setGravity(math.cos(data.angle) * data.conf.gravity, math.sin(data.angle) * data.conf.gravity)
