@@ -5,6 +5,7 @@ local love = love
 
 local Game_component = require("generics.game-component")
 local Vec2 = require("generics.vec2")
+local Character = require("character")
 local Sky = require("sky")
 local Parachute = require("parachute")
 local Ball = require("ball")
@@ -27,10 +28,14 @@ end
 
 function Game_scene:new()
     local gs = Game_component:new()
-
+    -- local foo = love.graphics.newImage("assets/SoccerBall.png")
+    -- print(foo)
+    
     -- want named reference to the ball
     gs.ball = Ball:new(data)
     gs.components = {}
+    gs.one = Character:new(data, "assets/FreeSpriteChan.png", Vec2:new(400, 0))
+    gs.two = Character:new(data, "assets/FreeSpriteKun2.png", Vec2:new(0, 0))    
 
     function gs:set_gravity()
         data.world:setGravity(math.cos(data.angle) * data.conf.gravity, math.sin(data.angle) * data.conf.gravity)
@@ -39,6 +44,8 @@ function Game_scene:new()
     function gs:load()
         love.physics.setMeter(data.conf.meter_size)
         table.insert(self.components, Sky:new())
+        table.insert(self.components, self.one)
+        table.insert(self.components, self.two)
         table.insert(self.components, camera_on)
         table.insert(self.components, Parachute:new(data, self.ball))
         table.insert(self.components, self.ball)

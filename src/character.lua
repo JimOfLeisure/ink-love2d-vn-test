@@ -1,24 +1,23 @@
 local Character = {}
 
+local Game_component = require("generics.game-component")
+local Vec2 = require("generics.vec2")
+
 -- For optimization
-local graphics = love.graphics
+local love = love
 
-function Character:new_character(image_path, x, y, scale)
-    character = {}
-    character.image = graphics.newImage(image_path)
-    character.x = x
-    character.y = y
-    character.scale = scale    
-
-    function character:load()
-    end
+function Character:new(data, image_path, pos, scale)
+    obj = Game_component:new()
+    obj.image = love.graphics.newImage(image_path)
+    obj.pos = pos
+    obj.scale = scale or 1
     
-    function character:draw()
-        graphics.setColor(1, 1, 1, 1)
-        graphics.draw(self.image, self.x, self.y, 0, self.scale, nil)
+    function obj:draw()
+        love.graphics.setColor(1, 1, 1, 1)
+        love.graphics.draw(self.image, self.pos.x, self.pos.y, 0, self.scale, nil)
     end
 
-    return character
+    return obj
 end
 
 
