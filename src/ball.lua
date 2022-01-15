@@ -38,7 +38,7 @@ end;
         self.shape = love.physics.newCircleShape(25)
         self.fixture = love.physics.newFixture(self.body, self.shape, 1)
         self.fixture:setRestitution(0.6)
-        self.image = love.graphics.newImage("SoccerBall.png")
+        self.image = love.graphics.newImage("assets/SoccerBall.png")
         self.shader = love.graphics.newShader(shader_string)
     end
 

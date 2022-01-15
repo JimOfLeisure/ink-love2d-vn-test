@@ -12,7 +12,7 @@ function Parachute:new(data, target)
     local obj = Game_component:new()
     obj.data = data
     obj.target = target
-    obj.image = love.graphics.newImage("Parachute-icon.png")
+    obj.image = love.graphics.newImage("assets/Parachute-icon.png")
     function obj:load()
     end
 
