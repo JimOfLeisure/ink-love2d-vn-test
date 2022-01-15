@@ -90,23 +90,21 @@ function Game_scene:new()
     end
 
     function gs:dragging()
-        if data.dragging then
-            local x = love.mouse.getX()
-            local y = love.mouse.getY()
-    
-            data.angle = data.angle + (data.drag_y - y) * 0.01
-            if data.angle < data.min_angle then
-                data.angle = data.min_angle
-            else
-                if data.angle > data.max_angle then
-                    data.angle = data.max_angle
-                end
+        local x = love.mouse.getX()
+        local y = love.mouse.getY()
+
+        data.angle = data.angle + (data.drag_y - y) * 0.01
+        if data.angle < data.min_angle then
+            data.angle = data.min_angle
+        else
+            if data.angle > data.max_angle then
+                data.angle = data.max_angle
             end
-    
-            data.drag_x = x
-            data.drag_y = y
-            data:set_gravity()
         end
+
+        data.drag_x = x
+        data.drag_y = y
+        data:set_gravity()
     end
     
     return gs
