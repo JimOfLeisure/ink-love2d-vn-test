@@ -11,7 +11,7 @@ local Parachute = require("parachute")
 local Ball = require("ball")
 local Ground = require("ground")
 local data = require("game-scene-data")
-local Screen_text = require("screen-text")
+-- local Stats_text = require("stats-text")
 
 local main_camera_on = Game_component:new()
 function main_camera_on:draw()
@@ -60,7 +60,7 @@ function Game_scene:new()
             table.insert(self.components, Ground:new(data, Vec2:new(i, 500)))
         end
         table.insert(self.components, camera_off)
-        -- table.insert(self.components, Screen_text:new(data, self.ball))
+        -- table.insert(self.components, Stats_text:new(data))
 
         for _, component in ipairs(self.components) do
             component:load()
