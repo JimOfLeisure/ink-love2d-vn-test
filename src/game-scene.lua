@@ -12,6 +12,7 @@ local Ball = require("ball")
 local Ground = require("ground")
 local data = require("game-scene-data")
 -- local Stats_text = require("stats-text")
+local Dialogue = require("dialogue")
 
 local main_camera_on = Game_component:new()
 function main_camera_on:draw()
@@ -35,8 +36,9 @@ end
 function Game_scene:new()
     local gs = Game_component:new()
     
-    -- want named reference to the ball
+    -- want named reference to the ball and dialogue
     gs.ball = Ball:new(data)
+    gs.dialogue = Dialogue:new(data, "stories.main")
     gs.components = {}
     gs.one = Character:new(data, "assets/FreeSpriteChan.png", Vec2:new(400, 0))
     gs.two = Character:new(data, "assets/FreeSpriteKun2.png", Vec2:new(0, 0))    
@@ -61,6 +63,7 @@ function Game_scene:new()
         end
         table.insert(self.components, camera_off)
         -- table.insert(self.components, Stats_text:new(data))
+        table.insert(self.components, self.dialogue)
 
         for _, component in ipairs(self.components) do
             component:load()
@@ -86,6 +89,9 @@ function Game_scene:new()
         end
     end
 
+    function gs:keypressed(key)
+        self.dialogue:keypressed(key)
+    end
 
     function gs:mousepressed(x, y, button)
         if button == 1 then

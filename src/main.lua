@@ -13,6 +13,9 @@ function love.draw()
     game_scene:draw()
 end
 
+function love.keypressed(key)
+    game_scene:keypressed(key)
+end
 
 function love.mousepressed(x, y, button)
     game_scene:mousepressed(x, y, button)
